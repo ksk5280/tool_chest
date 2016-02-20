@@ -32,9 +32,9 @@ class ToolsController < ApplicationController
   def update
     find_tool
     if @tool.update(tool_params)
-      redirect_to tool_path(@tool.id)
+      redirect_to @tool
     else
-      render :edit
+      render :index
     end
   end
 
