@@ -7,8 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<p>
+  <strong>Current Sessions Tool Summary:</strong> <%= current_tool_summary %>
+</p>
 <%= yield %>
-
+<p>
+  <strong>Newest tool:</strong> <%= most_recent_tool %>
+</p>
 </body>
 </html>

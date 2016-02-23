@@ -1,4 +1,7 @@
 <div class="tool_info">
+  <% flash.each do |type, msg| %>
+    <%= content_tag :div, msg, class: "flash_#{type}" %>
+  <% end %>
   <h1><%= @tool.name %> - <%= @tool.quantity %></h1>
   <h3><%= @tool.formatted_price %></h3>
   <%= link_to "Destroy #{@tool.name}", tool_path(@tool.id), method: "delete" %>

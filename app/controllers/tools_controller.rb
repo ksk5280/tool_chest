@@ -18,9 +18,14 @@ class ToolsController < ApplicationController
     # try to save
     if @tool.save
       # if it saves, send user to view tool
+      flash[:notice] = "#{@tool.name} was created!"
+      session[:most_recent_tool_id] = @tool.id
+      session[:current_tool_count] = session[:current_tool_count] + @tool.quantity
+      session[:current_potential_revenue] = session[:current_potential_revenue] + (@tool.price * @tool.quantity)
       redirect_to tool_path(@tool.id)
     else
       # else render new view to try again
+      flash[:error] = @tool.errors.full_messages.join(", ")
       render :new
     end
   end
