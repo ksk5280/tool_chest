@@ -2,11 +2,18 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :most_recent_tool, :current_tool_summary
+  helper_method :most_recent_tool, :current_tool_summary, :current_user
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
 
   def most_recent_tool
-    return "No tools added this session" if session[:most_recent_tool_id].nil?
-    Tool.find(session[:most_recent_tool_id]).name
+    if session[:most_recent_tool_id].nil?
+      "No tools added this session"
+    else
+      Tool.find(session[:most_recent_tool_id]).name
+    end
   end
 
   def current_tool_summary

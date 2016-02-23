@@ -10,6 +10,9 @@
 <p>
   <strong>Current Sessions Tool Summary:</strong> <%= current_tool_summary %>
 </p>
+<% if current_user %>
+  Welcome <%= current_user.username %>!
+<% end %>
 <%= yield %>
 <p>
   <strong>Newest tool:</strong> <%= most_recent_tool %>

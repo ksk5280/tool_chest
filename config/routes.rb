@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   resources :tools
 
   get "/tools/random", to: "tools#random", as: :random_tool
+
+  root to: "users#index"
+
+  resources :users, only: [:new, :create, :show]
 end
 
 # resources :tools => gives all the routes
