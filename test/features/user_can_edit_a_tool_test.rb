@@ -3,7 +3,9 @@ require 'test_helper'
 class UserCanEditAToolTest < ActionDispatch::IntegrationTest
 
   test "user can edit an existing tool" do
-    tool = Tool.create(name: "screwdriver", quantity: 10, price: 10000)
+    user = User.create(username: "Kimiko", password: "password")
+    tool = user.tools.create(name: "screwdriver", quantity: 10, price: 10000)
+
     visit edit_tool_path(tool.id)
     fill_in "Name", with: "wrench"
     fill_in "tool[quantity]", with: "11"

@@ -1,6 +1,6 @@
 class ToolsController < ApplicationController
   def index
-    @tools = Tool.all
+    @tools = current_user.tools
   end
 
   def show
@@ -14,14 +14,26 @@ class ToolsController < ApplicationController
   def create
     # Generate tool
     # add attributes
-    @tool = Tool.new(tool_params)
+
+    @tool = current_user.tools.new(tool_params)
     # try to save
     if @tool.save
       # if it saves, send user to view tool
       flash[:notice] = "#{@tool.name} was created!"
       session[:most_recent_tool_id] = @tool.id
-      session[:current_tool_count] = session[:current_tool_count] + @tool.quantity
-      session[:current_potential_revenue] = session[:current_potential_revenue] + (@tool.price * @tool.quantity)
+
+      # refactor this to private method:
+      if session[:current_tool_count]
+        session[:current_tool_count] = session[:current_tool_count] + @tool.quantity
+      else
+        session[:current_tool_count] = @tool.quantity
+      end
+      if session[:current_potential_revenue]
+        session[:current_potential_revenue] = session[:current_potential_revenue] + (@tool.price * @tool.quantity)
+      else
+        session[:current_potential_revenue] = @tool.price
+      end
+
       redirect_to tool_path(@tool.id)
     else
       # else render new view to try again
@@ -57,6 +69,6 @@ class ToolsController < ApplicationController
   end
 
   def tool_params
-    params.require(:tool).permit(:name, :quantity, :price)
+    params.require(:tool).permit(:name, :quantity, :price, :category_id)
   end
 end

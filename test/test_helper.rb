@@ -13,7 +13,21 @@ end
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
+  def setup
+    DatabaseCleaner.start
+  end
+
   def teardown
     reset_session!
+    DatabaseCleaner.clean
+  end
+
+  def user_logs_in
+    @user = User.create(username: "Kimiko", password: "password")
+
+    visit login_path
+    fill_in "Username", with: @user.username
+    fill_in "Password", with: "password"
+    click_button "Login"
   end
 end

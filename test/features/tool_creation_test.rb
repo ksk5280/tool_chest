@@ -3,6 +3,8 @@ require "test_helper"
 class ToolCreationTest < ActionDispatch::IntegrationTest
 
   test "user can create a tool" do
+    user_logs_in
+
     visit new_tool_path
 
     fill_in "Name", with: "Screwdriver"

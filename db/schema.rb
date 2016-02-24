@@ -11,20 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223205611) do
+ActiveRecord::Schema.define(version: 20160223224302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tools", force: :cascade do |t|
     t.text     "name"
     t.integer  "price"
     t.integer  "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "user_id"
+    t.integer  "category_id"
   end
 
+  add_index "tools", ["category_id"], name: "index_tools_on_category_id", using: :btree
   add_index "tools", ["user_id"], name: "index_tools_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -34,5 +42,6 @@ ActiveRecord::Schema.define(version: 20160223205611) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "tools", "categories"
   add_foreign_key "tools", "users"
 end

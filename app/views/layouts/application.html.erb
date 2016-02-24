@@ -7,16 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p>
-  <strong>Current Sessions Tool Summary:</strong> <%= current_tool_summary %>
-</p>
 <% if current_user %>
+  <p>
+    <strong>Current Sessions Tool Summary:</strong> <%= current_tool_summary %>
+  </p>
   Welcome <%= current_user.username %>!
   <%= link_to "Logout", logout_path, method: :delete %>
+  <p>
+    <strong>Newest tool:</strong> <%= most_recent_tool %>
+  </p>
 <% end %>
 <%= yield %>
-<p>
-  <strong>Newest tool:</strong> <%= most_recent_tool %>
-</p>
 </body>
 </html>
