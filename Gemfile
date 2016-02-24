@@ -38,6 +38,7 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'mocha'
 end
 
 group :development do

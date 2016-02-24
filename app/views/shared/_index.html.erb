@@ -1,0 +1,3 @@
+<% @tools.each do |tool| %>
+  <h3><%= tool.name %> - <%= tool.quantity %> <%= link_to "Link to View #{tool.name}", tool_path(tool.id) %></h3>
+<% end %>
