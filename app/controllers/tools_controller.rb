@@ -14,7 +14,6 @@ class ToolsController < ApplicationController
   def create
     # Generate tool
     # add attributes
-
     @tool = current_user.tools.new(tool_params)
     # try to save
     if @tool.save
@@ -68,7 +67,7 @@ class ToolsController < ApplicationController
     @tool = Tool.find(params[:id])
   end
 
-  def tool_params
+    def tool_params
     params.require(:tool).permit(:name, :quantity, :price, :category_id)
   end
 end
