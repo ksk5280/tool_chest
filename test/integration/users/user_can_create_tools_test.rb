@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ToolCreationTest < ActionDispatch::IntegrationTest
+class UserCanCreateAToolTest < ActionDispatch::IntegrationTest
 
   test "user can create a tool" do
     user_logs_in

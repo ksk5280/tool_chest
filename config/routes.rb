@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  resources :tools
-
-  get "/tools/random", to: "tools#random", as: :random_tool
 
   root to: "users#index"
 
+  resources :tools
   resources :users, only: [:new, :create, :show]
+  resources :categories, only: [:index, :show]
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -14,9 +13,9 @@ Rails.application.routes.draw do
   namespace "admin" do
     resources :tools, only: [:index]
   end
-
 end
 
+# get "/tools/random", to: "tools#random", as: :random_tool
 # resources :tools => gives all the routes
 # get '/tools', to: "tools#index" => gives just the index route
 

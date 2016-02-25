@@ -25,7 +25,7 @@ class ActionDispatch::IntegrationTest
   end
 
   def user_logs_in
-    @user = User.create(username: "Kimiko", password: "password")
+    @user = User.create(username: "Kimiko", password: "password", role: 0)
 
     visit login_path
     fill_in "Username", with: @user.username
