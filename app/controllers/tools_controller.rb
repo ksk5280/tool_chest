@@ -1,10 +1,16 @@
 class ToolsController < ApplicationController
+  before_action :find_tool, only: [:show, :edit, :update]
+  before_action :require_user
+
+  def require_user
+    redirect_to login_path unless current_user
+  end
+
   def index
     @tools = current_user.tools
   end
 
   def show
-    find_tool
   end
 
   def new
@@ -21,7 +27,9 @@ class ToolsController < ApplicationController
       flash[:notice] = "#{@tool.name} was created!"
       session[:most_recent_tool_id] = @tool.id
 
-      # refactor this to private method:
+      # @tool_summary.update(@tool)
+
+      # moved this to application controller:
       if session[:current_tool_count]
         session[:current_tool_count] = session[:current_tool_count] + @tool.quantity
       else
@@ -42,11 +50,9 @@ class ToolsController < ApplicationController
   end
 
   def edit
-    find_tool
   end
 
   def update
-    find_tool
     if @tool.update(tool_params)
       redirect_to @tool
     else
@@ -64,7 +70,7 @@ class ToolsController < ApplicationController
   private
 
   def find_tool
-    @tool = Tool.find(params[:id])
+    @tool = current_user.tools.find(params[:id])
   end
 
     def tool_params

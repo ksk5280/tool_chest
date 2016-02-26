@@ -3,10 +3,15 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :most_recent_tool, :current_tool_summary, :current_user
+  # before_action :set_tool_summary
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
+
+  # def set_tool_summary
+  #   @tool_summary ||= ToolSummary.new(session[:current_tool_count, session [:most_recent_tool_id]])
+  # end
 
   def most_recent_tool
     if session[:most_recent_tool_id].nil?
